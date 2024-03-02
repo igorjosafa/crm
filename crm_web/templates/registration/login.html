@@ -1,0 +1,16 @@
+<!-- O app para fazer o login já vem instalado. Só é preciso indicar o url no urls.py do top-leve, criar o template e indicar o caminho do template no settings.py   -->
+
+<!-- templates/registration/login.html -->
+
+{% extends "base.html" %}
+    
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2>Log In</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form }}
+  <button type="submit">Log In</button>
+</form>
+{% endblock %}
