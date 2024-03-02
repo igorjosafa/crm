@@ -26,3 +26,19 @@ class UsuarioResponsavel(AbstractUser):
 
     def __str__(self):
         return f'{self.nome} - {self.cpf}'
+    
+class UsuarioFuncionario(AbstractUser):
+    usuario = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='usuario_funcionario')
+    nome = models.CharField(max_length=100)
+    cpf = models.CharField(max_length=14, unique=True, verbose_name='CPF')
+    empresa = models.ForeignKey('Empresa', on_delete=models.SET_NULL, null=True, blank=True, related_name='funcionario')
+    
+     # Defina related_name exclusivos para evitar conflitos
+    groups = models.ManyToManyField(Group, verbose_name=_('groups'), blank=True, related_name='funcionarios_grupo')
+    user_permissions = models.ManyToManyField(Permission, verbose_name=_('user permissions'), blank=True, related_name='funcionarios_permissoes')
+
+    class Meta:
+        verbose_name_plural = 'Usuários Funcionários'
+
+    def __str__(self):
+        return f'{self.nome} - {self.cpf}'
